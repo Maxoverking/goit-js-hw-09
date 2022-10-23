@@ -16,3 +16,27 @@ img {
   display: block;
   max-width: 100%;
 }
+input{
+font-size: x-large;
+    font-family: unset;
+}
+button{
+font-size: x-large;
+}
+
+.timer {
+  display: flex;
+  gap: 10px; 
+}
+.field {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+.value {
+font-size: xxx-large;
+
+}
+.label {
+  font-size: x-large;
+}
