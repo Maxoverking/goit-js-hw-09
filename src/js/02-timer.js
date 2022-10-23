@@ -1,6 +1,11 @@
 // Описан в документации
 import flatpickr from "flatpickr";
 // Дополнительный импорт стилей
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+// console.log("🚀 ~ Block", Block);
+
 import "flatpickr/dist/flatpickr.min.css";
 
 const timerContainer = document.querySelector('.timer');
@@ -15,6 +20,7 @@ for (const fieldTextSpan of fieldTextSpans) {
    fieldTextSpan.style.textAlign = "center"; 
 }
 const startBtn = document.querySelector('[data-start]');
+startBtn.disabled = true;
 
 const daysText = document.querySelector('[data-days]');
 const hoursText = document.querySelector('[data-hours]');
@@ -27,22 +33,32 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+  
   onClose(selectedDates) {
     console.log(selectedDates[0]);
 
     let dateNum = selectedDates[0].getTime();
 
+    if (dateNum < Date.now()) {
+      Notify.failure("Please choose a date in the future");
+      return;
+    } else {
+      startBtn.disabled = false; 
+      Notify.success('Success', {timeout : 1500});
+    }
 
     startBtn.addEventListener('click', () => {
-    
+
       setInterval(() => {
-        const dataclick = Date.now();
+        startBtn.disabled = true;
+
+        const dataclick = Date.now(); 
       // console.log("🚀 ~ dataclick", dataclick);
       const dateChooseAndCurrent = dateNum - dataclick;
 
       const convertToObject = convertMs(dateChooseAndCurrent);
       // console.log("🚀 ~ convertToObject", convertToObject);
-       
+      
       const { days, hours, minutes, seconds } = convertToObject;
       daysText.textContent = days;
       hoursText.textContent = hours;
@@ -53,6 +69,7 @@ const options = {
   },
 
 };
+
 flatpickr("#datetime-picker", options);
 
 function addLeadingZero(value) {
