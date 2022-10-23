@@ -1,7 +1,16 @@
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
-
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+//==========================================================
+
+const timerContainer = document.querySelector('.timer');
+const startBtn = document.querySelector('[data-start]');
+startBtn.disabled = true;
+
+const daySpan = document.querySelector('[data-days]');
+const hourSpan = document.querySelector('[data-hours]');
+const minuteSpan = document.querySelector('[data-minutes]');
+const secondSpan = document.querySelector('[data-seconds]');
 
 const options = {
   enableTime: true,
@@ -25,17 +34,17 @@ const options = {
 
       let timer = setInterval(() => {
         const currentDate = Date.now(); 
-        const selectDateAndCurrent = selectDate - currentDate;
+        const selectDateAndCurrentDate = selectDate - currentDate;
 
-        if (selectDateAndCurrent >= 0) {
-          const convertToObject = convertMs(selectDateAndCurrent);
+        if (selectDateAndCurrentDate >= 0) {
+          const convertToObject = convertMs(selectDateAndCurrentDate);
           const { days, hours, minutes, seconds } = convertToObject;
 
-          daysText.textContent = days;
-          hoursText.textContent = hours;
-          minutesText.textContent = minutes;
-          secondsText.textContent = seconds;
-          if (selectDateAndCurrent <= 86400000) {
+          daySpan.textContent = days
+          hourSpan.textContent = hours;
+          minuteSpan.textContent = minutes;
+          secondSpan.textContent = seconds;
+          if (selectDateAndCurrentDate <= 86400000) {
             timerContainer.style.color = 'red'; 
           }
         } else {
@@ -47,22 +56,9 @@ const options = {
   },
 
 };
-const timerContainer = document.querySelector('.timer');
-
-const startBtn = document.querySelector('[data-start]');
-startBtn.disabled = true;
-
-const daysText = document.querySelector('[data-days]');
-const hoursText = document.querySelector('[data-hours]');
-const minutesText = document.querySelector('[data-minutes]');
-const secondsText = document.querySelector('[data-seconds]');
 
 const inputId = document.getElementById('datetime-picker');
 let fp = flatpickr(inputId , options);
-
-function addLeadingZero(value) {
-  return String(value).padStart(2, "0");
- }
 
 function convertMs(ms) {
   const second = 1000;
@@ -76,7 +72,9 @@ function convertMs(ms) {
   const seconds = addLeadingZero(Math.floor((((ms % day) % hour) % minute) / second));
   return { days, hours, minutes, seconds };
 }
-
+function addLeadingZero(value) {
+  return String(value).padStart(2, "0");
+ }
 
 
 
