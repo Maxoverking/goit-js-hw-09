@@ -14,13 +14,13 @@ body {
 
 img {
   display: block;
-  max-width: 100%;
+  max-width: 10
 }
-input{
+#datetime-picker{
 font-size: x-large;
     font-family: unset;
 }
-button{
+[data-start]{
 font-size: x-large;
 }
 
