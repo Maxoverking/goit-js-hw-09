@@ -2,7 +2,7 @@ import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 //==========================================================
-
+const inputId = document.getElementById('datetime-picker');
 const timerContainer = document.querySelector('.timer');
 const startBtn = document.querySelector('[data-start]');
 startBtn.disabled = true;
@@ -57,7 +57,7 @@ const options = {
 
 };
 
-const inputId = document.getElementById('datetime-picker');
+
 let fp = flatpickr(inputId , options);
 
 function convertMs(ms) {
