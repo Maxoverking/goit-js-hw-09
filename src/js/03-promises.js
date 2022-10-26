@@ -11,8 +11,6 @@ form.addEventListener('click', (evt) => {
   const amountValue = Number(amount.value);
 
   for (let i = 0; i < amountValue; i++) { 
-
-    // console.log("🚀 ~ i", delayValue + i * stepValue);
     createPromise(i + 1, delayValue + i * stepValue);
   }
 })
@@ -20,7 +18,7 @@ form.addEventListener('click', (evt) => {
 function createPromise(position, delay) {
   //  console.log(position, delay);
   const shouldResolve = Math.random() > 0.3;
-  new Promise((resolve, reject) => {
+  let promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {
       resolve(`✅ Fulfilled promise ${position} in ${delay}ms`)
@@ -29,7 +27,10 @@ function createPromise(position, delay) {
       }
       
     }, delay);
-  }).then( result => Notify.success(result)).catch(result  => Notify.failure(result))
+  })
+   promise 
+     .then(result => Notify.success(result))
+     .catch(result => Notify.failure(result))
  
   }
 
