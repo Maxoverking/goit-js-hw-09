@@ -12,7 +12,7 @@ form.addEventListener('click', (evt) => {
 
   for (let i = 0; i < amountValue; i++) { 
 
-    console.log("🚀 ~ i", delayValue + i * stepValue);
+    // console.log("🚀 ~ i", delayValue + i * stepValue);
     createPromise(i + 1, delayValue + i * stepValue);
   }
 })
