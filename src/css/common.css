@@ -23,6 +23,9 @@ font-size: x-large;
 [data-start]{
 font-size: x-large;
 }
+[data-stop]{
+font-size: x-large;
+}
 
 .timer {
   display: flex;
@@ -35,7 +38,6 @@ font-size: x-large;
 }
 .value {
 font-size: xxx-large;
-
 }
 .label {
   font-size: x-large;
