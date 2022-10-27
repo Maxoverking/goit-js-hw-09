@@ -20,13 +20,6 @@ img {
 font-size: x-large;
     font-family: unset;
 }
-[data-start]{
-font-size: x-large;
-}
-[data-stop]{
-font-size: x-large;
-}
-
 .timer {
   display: flex;
   gap: 10px; 
