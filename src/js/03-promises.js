@@ -9,7 +9,7 @@ form.addEventListener('click', (evt) => {
   const delayValue = Number(delay.value);
   const stepValue = Number(step.value);
   const amountValue = Number(amount.value);
-
+  
   for (let i = 0; i < amountValue; i++) { 
     createPromise(i + 1, delayValue + i * stepValue);
   }

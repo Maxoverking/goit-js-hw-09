@@ -13,6 +13,8 @@ const hourSpan = document.querySelector('[data-hours]');
 const minuteSpan = document.querySelector('[data-minutes]');
 const secondSpan = document.querySelector('[data-seconds]');
 
+let selectDate = null;
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -20,7 +22,7 @@ const options = {
   minuteIncrement: 1,
   
   onClose(selectedDates) {
-    let selectDate = selectedDates[0].getTime();
+    selectDate = selectedDates[0].getTime();
 
     if (selectDate < Date.now()) {
       Notify.failure("Please choose a date in the future", { position: "center-top", fontSize : '20px', width: '400px'});
@@ -29,37 +31,36 @@ const options = {
       startBtn.disabled = false; 
       Notify.success('Success', { timeout: 1500, position: "center-top", fontSize : '25px'});
     }
-
-    startBtn.addEventListener('click', () => {
-      startBtn.disabled = true;
-
-      let timer = setInterval(() => {
-        const currentDate = Date.now(); 
-        const selectDateAndCurrentDate = selectDate - currentDate;
-
-        if (selectDateAndCurrentDate >= 0) {
-          const convertToObject = convertMs(selectDateAndCurrentDate);
-          const { days, hours, minutes, seconds } = convertToObject;
-
-          daySpan.textContent = days
-          hourSpan.textContent = hours;
-          minuteSpan.textContent = minutes;
-          secondSpan.textContent = seconds;
-          if (selectDateAndCurrentDate <= 86400000) {
-            timerContainer.style.color = 'red'; 
-          }
-        } else {
-          clearInterval(timer);
-          timerContainer.style.color = 'black';
-        }   
-      }, 1000);
-    })
+    startBtn.addEventListener('click', startCount);
   },
-
 };
 
+let fp = flatpickr(inputId, options);
 
-let fp = flatpickr(inputId , options);
+function startCount() {
+startBtn.disabled = true;
+
+let timer = setInterval(() => {
+  const currentDate = Date.now(); 
+  const selectDateAndCurrentDate = selectDate - currentDate;
+
+  if (selectDateAndCurrentDate >= 0) {
+    const convertToObject = convertMs(selectDateAndCurrentDate);
+    const { days, hours, minutes, seconds } = convertToObject;
+
+    daySpan.textContent = days
+    hourSpan.textContent = hours;
+    minuteSpan.textContent = minutes;
+    secondSpan.textContent = seconds;
+    if (selectDateAndCurrentDate <= 86400000) {
+      timerContainer.style.color = 'red'; 
+    }
+  } else {
+    clearInterval(timer);
+    timerContainer.style.color = 'black';
+  }   
+}, 1000);
+}
 
 function convertMs(ms) {
   const second = 1000;
@@ -76,11 +77,6 @@ function convertMs(ms) {
 function addLeadingZero(value) {
   return String(value).padStart(2, "0");
  }
-
-
-
-
-
 
 
 
